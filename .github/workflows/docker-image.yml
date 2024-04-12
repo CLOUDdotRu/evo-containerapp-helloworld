@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
 env:
   CR_URI: helloworld.cr.cloud.ru
+  AZURE_URI: bondarevsky2.azurecr.io
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,5 +32,21 @@ jobs:
           platforms: linux/amd64
           provenance: false
           tags: ${{ env.CR_URI }}/helloworld:build${{ github.sha }}
+          file: ./Dockerfile
+          context: .
+      - name: Log in to Azure Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.AZURE_URI }}
+          username: ${{ secrets.AZURE_CR_LOGIN }}
+          password: ${{ secrets.AZURE_CR_PWD }}
+
+      - name: Build and push docker image to Azure Container Registry
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          platforms: linux/amd64
+          provenance: false
+          tags: ${{ env.AZURE_URI }}/helloworld:build${{ github.sha }}
           file: ./Dockerfile
           context: .
