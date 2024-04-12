@@ -4,7 +4,7 @@ COPY . /usr/app/
 RUN npm ci
 RUN npm run build
 
-FROM nginx:1.25.3-alpine-slim
+FROM nginxinc/nginx-unprivileged
 EXPOSE 8080
 COPY ./docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /usr/app/dist /usr/share/nginx/html
