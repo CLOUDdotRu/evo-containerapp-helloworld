@@ -15,7 +15,7 @@ function App() {
       <h2>Поздравляем!!! 👏 </h2>
       <div>
         <p>
-          Вы развернули первое приложение c помощью Container Apps & Artifact Registry в облаке Cloud.ru Evolution.
+          Вы мигрировали приложение из облака Azure в Cloud.ru Evolution.
         </p>
         {/* <img src={containerAppSplash} width={'400px'} /> */}
       </div>
