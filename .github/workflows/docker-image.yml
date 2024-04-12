@@ -18,22 +18,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Log in to Evolution Artifact Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ${{ env.CR_URI }}
-          username: ${{ secrets.EVO_CR_LOGIN }}
-          password: ${{ secrets.EVO_CR_PWD }}
-
-      - name: Build and push docker image to Evolution Aritfact Registry
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          platforms: linux/amd64
-          provenance: false
-          tags: ${{ env.CR_URI }}/helloworld:build${{ github.sha }}
-          file: ./Dockerfile
-          context: .
       - name: Log in to Azure Container Registry
         uses: docker/login-action@v1
         with:
